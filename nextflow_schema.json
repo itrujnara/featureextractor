@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["input", "outdir", "sizes"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -28,8 +28,33 @@
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "sizes": {
+                    "type": "string",
+                    "fa_icon": "fas fa-list-ul",
+                    "description": "A file containing chromosome sizes."
                 }
             }
+        },
+        "extraction_options": {
+            "title": "Extraction options",
+            "type": "object",
+            "description": "Parameters for the feature extraction process.",
+            "default": "",
+            "fa_icon": "fas fa-cogs",
+            "properties": {
+                "feature_type": {
+                    "type": "string",
+                    "description": "SOFA feature to extract."
+                },
+                "context_size": {
+                    "type": "integer",
+                    "description": "Size of the (symmetric) context of the features.",
+                    "default": 0,
+                    "fa_icon": "fas fa-arrows-alt-h"
+                }
+            },
+            "required": ["feature_type"]
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -126,6 +151,9 @@
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/extraction_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
